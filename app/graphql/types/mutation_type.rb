@@ -2,6 +2,7 @@
 
 module Types
   class MutationType < Types::BaseObject
+    field :blog_create, mutation: Mutations::BlogCreate
     # TODO: remove me
     field :test_field, String, null: false,
       description: "An example field added by the generator"
