@@ -35,6 +35,12 @@ gem "image_processing", "~> 1.2"
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
 
+# Use GraphQL
+gem "graphql", "~> 2.5"
+
+# Use graphiql-rails to mount the GraphiQL IDE
+gem "graphiql-rails"
+
 # Use sprockets-rails for asset packaging
 gem "sprockets-rails", "~> 3.0", ">= 3.0.4"
 
@@ -54,5 +60,3 @@ group :development, :test do
   # Data generation
   gem "faker"
 end
-
-gem "graphql", "~> 2.5"
