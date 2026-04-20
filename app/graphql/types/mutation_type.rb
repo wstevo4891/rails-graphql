@@ -2,6 +2,8 @@
 
 module Types
   class MutationType < Types::BaseObject
+    field :blog_delete, mutation: Mutations::BlogDelete
+    field :blog_update, mutation: Mutations::BlogUpdate
     field :blog_create, mutation: Mutations::BlogCreate
     # TODO: remove me
     field :test_field, String, null: false,
