@@ -11,6 +11,8 @@ class User < ApplicationRecord
   /x.freeze
 
   has_many :blogs, dependent: :destroy
+
+  enum :role, %w[author admin]
   has_secure_password
 
   validates :email, presence: true, uniqueness: true
