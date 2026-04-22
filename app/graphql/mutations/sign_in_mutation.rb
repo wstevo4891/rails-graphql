@@ -16,7 +16,7 @@ module Mutations
 
       return { error: "Username or Password is incorrect" } unless user
 
-      token = JWT.encode user.id, hmac_secret, "HS256"
+      token = JWT.encode(user.id, hmac_secret, "HS256")
 
       {
         token: token,
