@@ -2,6 +2,7 @@
 
 module Types
   class MutationType < Types::BaseObject
+    field :sign_in_mutation, mutation: Mutations::SignInMutation
     field :blog_delete, mutation: Mutations::BlogDelete
     field :blog_update, mutation: Mutations::BlogUpdate
     field :blog_create, mutation: Mutations::BlogCreate
