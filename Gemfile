@@ -42,7 +42,7 @@ gem "graphql", "~> 2.5"
 gem "graphiql-rails"
 
 # Use sprockets-rails for asset packaging
-gem "sprockets-rails", "~> 3.0", ">= 3.0.4"
+gem "sprockets-rails", "~> 3.5"
 
 # Use bcrypt for password encryption
 gem "bcrypt", "~> 3.1"
