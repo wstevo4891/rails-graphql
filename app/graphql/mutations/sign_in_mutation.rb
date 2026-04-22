@@ -12,7 +12,7 @@ module Mutations
       raise GraphQL::ExecutionError, "User already signed in" if context[:current_user]
 
       hmac_secret = Rails.application.credentials.dig(:API_KEY)
-      user = User.find_by(username: "user-name")&.authenticate(password)
+      user = User.find_by(username: username)&.authenticate(password)
 
       return { error: "Username or Password is incorrect" } unless user
 
