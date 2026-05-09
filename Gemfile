@@ -63,6 +63,16 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  # Data generation
-  gem "faker"
+  # Use RSpec for testing
+  gem "rspec-rails", "~> 8.0"
+
+  # Use shoulda-matchers to add RSpec testing methods
+  gem "shoulda-matchers", "~> 7.0", ">= 7.0.1"
+
+  # Use Factory Bot and Faker to generate test data
+  gem "factory_bot_rails", "~> 6.5"
+  gem "faker", "~> 3.8"
+
+  # Use Database Cleaner to clean data between test runs
+  gem "database_cleaner-active_record"
 end
