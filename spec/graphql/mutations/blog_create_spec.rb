@@ -7,17 +7,13 @@ RSpec.describe Mutations::BlogCreate do
   let(:description) { "A sample blog description." }
 
   let(:query) do
-    input = <<~INPUT
-      {
-        title: "#{title}",
-        description: "#{description}",
-        userId: #{user_id}
-      }
-    INPUT
-
     <<~GQL
       mutation createBlog {
-        blogCreate(input: #{input}) {
+        blogCreate(input: {
+          title: "#{title}",
+          description: "#{description}",
+          userId: #{user_id}
+        }) {
           blog {
             id
             title
