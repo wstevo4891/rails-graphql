@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Mutations::BlogCreate, type: :mutation do
+RSpec.describe Mutations::BlogCreate do
   let(:user) { create(:user) }
   let(:user_id) { user.id }
   let(:title) { "A sample blog title" }
