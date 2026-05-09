@@ -54,4 +54,10 @@ RSpec.describe Blog, type: :model do
       expect(blog.errors[:user]).to include("must exist")
     end
   end
+
+  describe ".save" do
+    it "creates a new record" do
+      expect { blog.save! }.to change { Blog.count }.by(1)
+    end
+  end
 end
