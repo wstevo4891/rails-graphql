@@ -15,8 +15,11 @@ class User < ApplicationRecord
   enum :role, %w[author admin]
   has_secure_password
 
-  validates :email, presence: true, uniqueness: true
-  validates :password, format: { with: PASSWORD_REGEXP, message: "condition failed" }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :password, format: {
+    with: PASSWORD_REGEXP,
+    message: "condition failed"
+  }
 
   before_save { self.email = email.downcase }
 end
