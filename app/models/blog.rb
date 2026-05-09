@@ -4,7 +4,6 @@ class Blog < ApplicationRecord
 
   belongs_to :user
 
-  validates_associated :user
   validates :title, presence: true, length: { in: 1..TITLE_MAX }
   validates :description, presence: true, length: { in: 1..DESCRIPTION_MAX }
 end
