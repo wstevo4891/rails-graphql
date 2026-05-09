@@ -7,7 +7,7 @@ RSpec.describe Mutations::BlogCreate, type: :mutation do
   let(:description) { "A sample blog description." }
 
   let(:query) do
-    input = <<~INPUT.gsub(/\n/, "")
+    input = <<~INPUT
       {
         title: "#{title}",
         description: "#{description}",
