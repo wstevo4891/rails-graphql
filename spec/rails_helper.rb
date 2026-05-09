@@ -69,4 +69,17 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Config for shoulda-matchers gem
+  Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+    end
+  end
+
+  # Set strategy for Database Cleaner
+  # This strategy will delete all tables except the users table
+  DatabaseCleaner[:active_record].strategy =
+    DatabaseCleaner::ActiveRecord::Deletion.new(except: [ "users" ])
 end
