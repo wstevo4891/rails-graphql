@@ -3,13 +3,15 @@ require "rails_helper"
 RSpec.describe Mutations::BlogUpdate do
   let(:user) { create(:user) }
   let(:blog) { create(:blog, user: user) }
+  let(:blog_id) { blog.id }
   let(:title) { "An updated blog title" }
   let(:description) { "An updated blog description." }
+
   let(:query) do
     <<~GQL
       mutation updateBlog {
         blogUpdate(input: {
-          id: #{blog.id},
+          id: #{blog_id},
           title: "#{title}",
           description: "#{description}"
         }) {
@@ -27,18 +29,18 @@ RSpec.describe Mutations::BlogUpdate do
 
   let(:response) { update_blog.to_h }
 
-  let(:blog_data) { response["data"]["blogUpdate"]["blog"] }
+  let(:response_data) { response["data"]["blogUpdate"]["blog"] }
 
   let(:error_message) { response["errors"].first["message"] }
 
   let(:error_details) { response["errors"].first["extensions"] }
 
   it "updates the title" do
-    expect(blog_data["title"]).to eq(title)
+    expect(response_data["title"]).to eq(title)
   end
 
   it "updates the description" do
-    expect(blog_data["description"]).to eq(description)
+    expect(response_data["description"]).to eq(description)
   end
 
   context "when the title argument is blank" do
@@ -93,6 +95,14 @@ RSpec.describe Mutations::BlogUpdate do
     end
   end
 
+  context "when blog ID does not exist" do
+    let(:blog_id) { 0 }
+
+    it "returns a record not found message" do
+      expect(error_message).to match(/Record not found/)
+    end
+  end
+
   describe "updating only the title" do
     let(:query) do
       <<~GQL
@@ -102,7 +112,6 @@ RSpec.describe Mutations::BlogUpdate do
             title: "#{title}"
           }) {
             blog {
-              id
               title
               description
             }
@@ -112,11 +121,11 @@ RSpec.describe Mutations::BlogUpdate do
     end
 
     it "updates the title" do
-      expect(blog_data["title"]).to eq(title)
+      expect(response_data["title"]).to eq(title)
     end
 
     it "does not change the description" do
-      expect(blog_data["description"]).to eq(blog.description)
+      expect(response_data["description"]).to eq(blog.description)
     end
   end
 
@@ -129,7 +138,6 @@ RSpec.describe Mutations::BlogUpdate do
             description: "#{description}"
           }) {
             blog {
-              id
               title
               description
             }
@@ -139,11 +147,11 @@ RSpec.describe Mutations::BlogUpdate do
     end
 
     it "updates the description" do
-      expect(blog_data["description"]).to eq(description)
+      expect(response_data["description"]).to eq(description)
     end
 
     it "does not change the title" do
-      expect(blog_data["title"]).to eq(blog.title)
+      expect(response_data["title"]).to eq(blog.title)
     end
   end
 end
