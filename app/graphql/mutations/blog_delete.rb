@@ -29,7 +29,10 @@ module Mutations
     end
 
     def raise_deletion_error(blog)
-      raise GraphQL::ExecutionError.new("Error deleting blog", extensions: blog.errors.to_hash)
+      raise GraphQL::ExecutionError.new(
+        "Error deleting blog",
+        extensions: blog.errors.to_hash
+      )
     end
   end
 end
