@@ -29,7 +29,7 @@ RSpec.describe Mutations::SignInMutation do
     end
 
     it "does not return an error" do
-      expect(response_data["error"]).to be_blank
+      expect(response_data["error"]).to be_nil
     end
   end
 
@@ -59,6 +59,18 @@ RSpec.describe Mutations::SignInMutation do
 
   context "when password is blank" do
     let(:password) { "" }
+
+    it "does not return a token" do
+      expect(response_data["token"]).to be_nil
+    end
+
+    it "returns an error message" do
+      expect(response_data["error"]).to eq("Username or Password is incorrect")
+    end
+  end
+
+  context "when user does not exist" do
+    let(:username) { "fakeUser123" }
 
     it "does not return a token" do
       expect(response_data["token"]).to be_nil

@@ -18,10 +18,7 @@ module Mutations
 
       token = JWT.encode(user.id, hmac_secret, "HS256")
 
-      {
-        token: token,
-        error: ""
-      }
+      { token: token }
     end
 
     private
