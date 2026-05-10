@@ -9,7 +9,7 @@ module Mutations
     argument :password, String, required: true
 
     def resolve(username:, password:)
-      raise GraphQL::ExecutionError, "User already signed in" if context[:current_user]
+      raise_redundant_sign_in_error if context[:current_user]
 
       hmac_secret = Rails.application.credentials.dig(:API_KEY)
       user = User.find_by(username: username)&.authenticate(password)
@@ -22,6 +22,12 @@ module Mutations
         token: token,
         error: ""
       }
+    end
+
+    private
+
+    def raise_redundant_sign_in_error
+      raise GraphQL::ExecutionError, "User already signed in"
     end
   end
 end
