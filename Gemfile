@@ -48,7 +48,7 @@ gem "sprockets-rails", "~> 3.0", ">= 3.0.4"
 gem "bcrypt", "~> 3.1"
 
 # Secure API with JSON Web Tokens
-gem "jwt", "~> 3.1"
+gem "jwt", "~> 3.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
