@@ -33,7 +33,7 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 # Use GraphQL
-gem "graphql", "~> 2.5"
+gem "graphql", "~> 2.6"
 
 # Use graphiql-rails to mount the GraphiQL IDE
 gem "graphiql-rails"
