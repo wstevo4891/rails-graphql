@@ -23,6 +23,9 @@ class RailsGraphqlSchema < GraphQL::Schema
     raise(GraphQL::RequiredImplementationMissingError)
   end
 
+  # Limit the depth of incoming queries:
+  max_depth(6)
+
   # Limit the size of incoming queries:
   max_query_string_tokens(5000)
 
