@@ -11,6 +11,10 @@ RSpec.describe Blog, type: :model do
 
   describe "associations" do
     it { should belong_to(:user) }
+    it { should have_many(:blog_categories).dependent(:destroy) }
+    it { should have_many(:categories).through(:blog_categories) }
+    it { should have_many(:comments).dependent(:destroy) }
+    it { should have_many(:ratings).dependent(:destroy) }
   end
 
   describe "validations" do

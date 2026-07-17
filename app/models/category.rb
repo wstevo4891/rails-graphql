@@ -1,14 +1,13 @@
-class Blog < ApplicationRecord
+# frozen_string_literal: true
+
+class Category < ApplicationRecord
   TITLE_MAX = 100
   DESCRIPTION_MAX = 500
 
-  belongs_to :user
-
   has_many :blog_categories, dependent: :destroy
-  has_many :categories, through: :blog_categories
-  has_many :comments, dependent: :destroy
-  has_many :ratings, dependent: :destroy
+  has_many :blogs, through: :blog_categories
 
   validates :title, presence: true, length: { in: 1..TITLE_MAX }
   validates :description, presence: true, length: { in: 1..DESCRIPTION_MAX }
+  validates :slug, presence: true, uniqueness: true
 end

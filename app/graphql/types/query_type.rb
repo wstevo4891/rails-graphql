@@ -40,5 +40,47 @@ module Types
     def blog(id:)
       Blog.find(id)
     end
+
+    field :categories, [ Types::CategoryType ], null: true, description: "Fetches all the categories"
+
+    def categories
+      Category.all
+    end
+
+    field :category, Types::CategoryType, null: false, description: "Fetch category by id" do
+      argument :id, ID, required: true
+    end
+
+    def category(id:)
+      Category.find(id)
+    end
+
+    field :comments, [ Types::CommentType ], null: true, description: "Fetches all the comments"
+
+    def comments
+      Comment.all
+    end
+
+    field :comment, Types::CommentType, null: false, description: "Fetch comment by id" do
+      argument :id, ID, required: true
+    end
+
+    def comment(id:)
+      Comment.find(id)
+    end
+
+    field :ratings, [ Types::RatingType ], null: true, description: "Fetches all the ratings"
+
+    def ratings
+      Rating.all
+    end
+
+    field :rating, Types::RatingType, null: false, description: "Fetch rating by id" do
+      argument :id, ID, required: true
+    end
+
+    def rating(id:)
+      Rating.find(id)
+    end
   end
 end

@@ -1,25 +1,17 @@
 # frozen_string_literal: true
 
 module Types
-  class BlogType < Types::BaseObject
+  class CommentType < Types::BaseObject
     field :id, ID, null: false
-    field :title, String
-    field :description, String
+    field :text, String
+    field :blog_id, Integer, null: false
     field :user_id, Integer, null: false
     field :user_name, String
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
-    field :categories, [ Types::CategoryType ]
-    field :comments, [ Types::CommentType ]
-    field :ratings, [ Types::RatingType ]
-    field :average_rating, Float, null: true
 
     def user_name
       "#{object.user.first_name} #{object.user.last_name}"
-    end
-
-    def average_rating
-      object.ratings.average(:rating)&.to_f
     end
   end
 end

@@ -108,6 +108,55 @@ RSpec.describe Types::BlogType do
       end
     end
 
+    describe "nested associations and average_rating" do
+      let(:query) do
+        <<~GQL
+          {
+            blog(id: #{blog_id}) {
+              categories { id }
+              comments { id }
+              ratings { id }
+              averageRating
+            }
+          }
+        GQL
+      end
+
+      context "when the blog has no ratings" do
+        it "returns a null averageRating" do
+          expect(response["averageRating"]).to be_nil
+        end
+      end
+
+      context "when the blog has categories, comments, and ratings" do
+        let(:category) { create(:category) }
+
+        before do
+          create(:blog_category, blog: blog, category: category)
+          create(:comment, blog: blog)
+          create(:rating, blog: blog, rating: 4.0)
+          create(:rating, blog: blog, rating: 5.0)
+        end
+
+        it "returns the blog's categories" do
+          ids = response["categories"].map { |c| c["id"].to_i }
+          expect(ids).to eq([ category.id ])
+        end
+
+        it "returns the blog's comments" do
+          expect(response["comments"].size).to eq(1)
+        end
+
+        it "returns the blog's ratings" do
+          expect(response["ratings"].size).to eq(2)
+        end
+
+        it "returns the averageRating" do
+          expect(response["averageRating"]).to eq(4.5)
+        end
+      end
+    end
+
     describe "with variables" do
       let(:query) do
         <<~GQL

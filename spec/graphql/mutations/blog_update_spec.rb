@@ -154,4 +154,56 @@ RSpec.describe Mutations::BlogUpdate do
       expect(response_data["title"]).to eq(blog.title)
     end
   end
+
+  describe "updating category_ids" do
+    let(:categories) { create_list(:category, 2) }
+    let(:category_ids) { categories.map(&:id) }
+
+    let(:query) do
+      <<~GQL
+        mutation updateBlog {
+          blogUpdate(input: {
+            id: #{blog.id},
+            categoryIds: [#{category_ids.join(', ')}]
+          }) {
+            blog {
+              categories {
+                id
+              }
+            }
+          }
+        }
+      GQL
+    end
+
+    it "replaces the blog's categories" do
+      ids = response_data["categories"].map { |c| c["id"].to_i }
+      expect(ids).to match_array(category_ids)
+    end
+
+    context "when replacing with an empty list" do
+      let(:query) do
+        <<~GQL
+          mutation updateBlog {
+            blogUpdate(input: {
+              id: #{blog.id},
+              categoryIds: []
+            }) {
+              blog {
+                categories {
+                  id
+                }
+              }
+            }
+          }
+        GQL
+      end
+
+      before { blog.category_ids = categories.map(&:id) }
+
+      it "clears the blog's categories" do
+        expect(response_data["categories"]).to be_empty
+      end
+    end
+  end
 end

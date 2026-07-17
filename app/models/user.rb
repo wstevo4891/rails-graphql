@@ -11,6 +11,8 @@ class User < ApplicationRecord
   /x.freeze
 
   has_many :blogs, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :ratings, dependent: :destroy
 
   enum :role, %w[author admin]
   has_secure_password

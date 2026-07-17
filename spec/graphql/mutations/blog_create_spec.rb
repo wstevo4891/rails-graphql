@@ -84,4 +84,34 @@ RSpec.describe Mutations::BlogCreate do
       expect(error_details["user"]).to include("must exist")
     end
   end
+
+  context "when category_ids are provided" do
+    let(:categories) { create_list(:category, 2) }
+    let(:category_ids) { categories.map(&:id) }
+
+    let(:query) do
+      <<~GQL
+        mutation createBlog {
+          blogCreate(input: {
+            title: "#{title}",
+            description: "#{description}",
+            userId: #{user_id},
+            categoryIds: [#{category_ids.join(', ')}]
+          }) {
+            blog {
+              id
+              categories {
+                id
+              }
+            }
+          }
+        }
+      GQL
+    end
+
+    it "attaches the given categories" do
+      ids = blog_data["categories"].map { |c| c["id"].to_i }
+      expect(ids).to match_array(category_ids)
+    end
+  end
 end

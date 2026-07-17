@@ -9,10 +9,12 @@ module Mutations
     argument :title, String, required: true
     argument :description, String, required: true
     argument :user_id, ID, required: true
+    argument :category_ids, [ ID ], required: false
 
-    def resolve(title:, description:, user_id:)
+    def resolve(title:, description:, user_id:, category_ids: nil)
       blog = ::Blog.new(title:, description:, user_id:)
       raise_execution_error(blog) unless blog.save
+      blog.category_ids = category_ids if category_ids
 
       { blog: blog }
     end

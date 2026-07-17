@@ -9,12 +9,14 @@ module Mutations
     argument :id, ID, required: true
     argument :title, String, required: false
     argument :description, String, required: false
+    argument :category_ids, [ ID ], required: false
 
-    def resolve(id:, title: nil, description: nil)
+    def resolve(id:, title: nil, description: nil, category_ids: nil)
       blog = ::Blog.find(id)
       title = blog.title if title.nil?
       description = blog.description if description.nil?
       raise_execution_error(blog) unless blog.update(title:, description:)
+      blog.category_ids = category_ids if category_ids
 
       { blog: blog }
     end
