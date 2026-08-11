@@ -42,7 +42,7 @@ gem "graphiql-rails"
 gem "sprockets-rails", "~> 3.0", ">= 3.0.4"
 
 # Secure API with JSON Web Tokens
-gem "jwt", "~> 3.1"
+gem "jwt", "~> 3.2"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
