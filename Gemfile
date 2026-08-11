@@ -70,7 +70,7 @@ group :development, :test do
   gem "rspec-rails", "~> 8.0"
 
   # Use shoulda-matchers to add RSpec testing methods
-  gem "shoulda-matchers", "~> 7.0", ">= 7.0.1"
+  gem "shoulda-matchers", "~> 8.0"
 
   # Use Factory Bot and Faker to generate test data
   gem "factory_bot_rails", "~> 6.5"
